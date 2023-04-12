@@ -7,7 +7,13 @@ public class Grid {
     public final int UNHIT_SHIP = 3;
     public final int SUNK_SHIP = 4;
 
-    int[][] board = new int[10][10];
+    private int[][] board = new int[10][10];
+
+    private int[][] carrier = new int[5][2];
+    private int[][] battleship = new int[4][2];
+    private int[][] cruiser = new int[3][2];
+    private int[][] submarine = new int[3][2];
+    private int[][] destroyer = new int[2][2];
 
     private boolean placePoint(int x, int y) {
         if (board[x][y] == EMPTY) {
@@ -46,19 +52,23 @@ public class Grid {
         return true;
     }
 
-    public boolean place2Ship(int x1, int y1, int x2, int y2) {
+    public boolean placeCarrier(int x1, int y1, int x2, int y2) {
         return placeShip(x1, y1, x2, y2);
     }
 
-    public boolean place3Ship(int x1, int y1, int x2, int y2) {
+    public boolean placeBattleship(int x1, int y1, int x2, int y2) {
         return placeShip(x1, y1, x2, y2);
     }
 
-    public boolean place4Ship(int x1, int y1, int x2, int y2) {
+    public boolean placeCruiser(int x1, int y1, int x2, int y2) {
         return placeShip(x1, y1, x2, y2);
     }
 
-    public boolean place5Ship(int x1, int y1, int x2, int y2) {
+    public boolean placeSubmarine(int x1, int y1, int x2, int y2) {
+        return placeShip(x1, y1, x2, y2);
+    }
+
+    public boolean placeDestroyer(int x1, int y1, int x2, int y2) {
         return placeShip(x1, y1, x2, y2);
     }
 
