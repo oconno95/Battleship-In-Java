@@ -25,28 +25,37 @@ public class Grid {
             return false;
         }
     }
+
+    private void addShipPoint(int[][] ship, int position, int x, int y) {
+        ship[position][0] = x;
+        ship[position][1] = y;
+    }
     
     //returns true if the game is able to place the ship and false if it cant
     //this assumes that the ship is placed horizontally or vertically
-    private boolean placeShip(int x1, int y1, int x2, int y2) {
+    private boolean placeShip(int x1, int y1, int x2, int y2, int[][] ship) {
         if (x1 < x2) {
             for (int i = x1; i <= x2; i++) {
                 if (!placePoint(i, y1)) return false;
+                else addShipPoint(ship, i-x1, i, y1);
             }
         }
         else if (x2 < x1) {
             for (int i = x2; i <= x1; i++) {
                 if (!placePoint(i, y1)) return false;
+                else addShipPoint(ship, i-x2, i, y1);
             }
         }
         else if (y1 < y2) {
             for (int i = y1; i <= y2; i++) {
                 if (!placePoint(x1, i)) return false;
+                else addShipPoint(ship, i-y1, x1, i);
             }
         }
         else {
             for (int i = y2; i <= y1; i++) {
                 if (!placePoint(x1, i)) return false;
+                else addShipPoint(ship, i-y2, x1, i);
             }
         }
         //the ship was placed successfully
@@ -54,23 +63,23 @@ public class Grid {
     }
 
     public boolean placeCarrier(int x1, int y1, int x2, int y2) {
-        return placeShip(x1, y1, x2, y2);
+        return placeShip(x1, y1, x2, y2, carrier);
     }
 
     public boolean placeBattleship(int x1, int y1, int x2, int y2) {
-        return placeShip(x1, y1, x2, y2);
+        return placeShip(x1, y1, x2, y2, battleship);
     }
 
     public boolean placeCruiser(int x1, int y1, int x2, int y2) {
-        return placeShip(x1, y1, x2, y2);
+        return placeShip(x1, y1, x2, y2, cruiser);
     }
 
     public boolean placeSubmarine(int x1, int y1, int x2, int y2) {
-        return placeShip(x1, y1, x2, y2);
+        return placeShip(x1, y1, x2, y2, submarine);
     }
 
     public boolean placeDestroyer(int x1, int y1, int x2, int y2) {
-        return placeShip(x1, y1, x2, y2);
+        return placeShip(x1, y1, x2, y2, destroyer);
     }
 
     //returns true if hit and false if miss
@@ -104,5 +113,42 @@ public class Grid {
         else {
             return false;
         }
+    }
+
+    public boolean isShipDestroyed(int[][] ship) {
+        for(int[] coordinate : ship) {
+            int positionState = board[coordinate[0]][coordinate[1]];
+            if (positionState == UNHIT_SHIP) {
+                return false;
+            }
+        }
+        for(int[] coordinate : ship) {
+            board[coordinate[0]][coordinate[1]] = SUNK_SHIP;
+        }
+        return true;
+    }
+
+    public boolean isAllShipsDestroyed() {
+        if (board[carrier[0][0]][carrier[0][1]] == SUNK_SHIP &&
+            board[battleship[0][0]][battleship[0][1]] == SUNK_SHIP &&
+            board[cruiser[0][0]][cruiser[0][1]] == SUNK_SHIP &&
+            board[submarine[0][0]][submarine[0][1]] == SUNK_SHIP &&
+            board[destroyer[0][0]][destroyer[0][1]] == SUNK_SHIP) {
+            
+            return true;
+        }
+        return false;
+    }
+
+    public String toString() {
+        String grid = "";
+
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++) {
+                grid = grid + board[i][j] + " ";
+            }
+            grid += "\n";
+        }
+        return grid;
     }
 }
