@@ -58,6 +58,12 @@ public class Grid {
                 else addShipPoint(ship, i-y2, x1, i);
             }
         }
+
+        //updating board with positions of newly placed ship
+        for(int[] pos : ship) {
+            this.board[pos[0]][pos[1]] = UNHIT_SHIP;
+        }
+
         //the ship was placed successfully
         return true;
     }
