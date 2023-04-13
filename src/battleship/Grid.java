@@ -9,11 +9,12 @@ public class Grid {
 
     private int[][] board = new int[10][10];
 
-    private int[][] carrier = new int[5][2];
-    private int[][] battleship = new int[4][2];
-    private int[][] cruiser = new int[3][2];
-    private int[][] submarine = new int[3][2];
-    private int[][] destroyer = new int[2][2];
+    private int[][] carrier     = new int[5][2];
+    private int[][] battleship  = new int[4][2];
+    private int[][] cruiser     = new int[3][2];
+    private int[][] submarine   = new int[3][2];
+    private int[][] destroyer   = new int[2][2];
+    
 
     private boolean placePoint(int x, int y) {
         if (board[x][y] == EMPTY) {
@@ -92,6 +93,7 @@ public class Grid {
         }
     }
 
+    //Checks that the ship is fully inside the grid and returns true if it is
     public boolean shipIsInGrid(int x1, int y1, int x2, int y2) {
         if (x1 >= 0 && x1 <= 9 &&
             x2 >= 0 && x2 <= 9 &&
