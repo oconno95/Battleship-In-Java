@@ -13,7 +13,7 @@ public abstract class Player {
     }
 
     public int fireAt(Player p) {
-        int[] fireLocation = this.getLocationToFireAt();
+        int[] fireLocation = this.getLocationToFireAt(p.getGrid());
         p.getGrid().fire(fireLocation[0], fireLocation[1]);
         return p.getGrid().isHit(fireLocation[0], fireLocation[1]);
     }
