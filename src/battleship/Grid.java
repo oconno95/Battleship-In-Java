@@ -82,16 +82,6 @@ public class Grid {
         return placeShip(x1, y1, x2, y2, destroyer);
     }
 
-    //returns true if hit and false if miss
-    public boolean guessPositon(int x, int y) {
-        if (board[x][y] == 3) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     //Checks if the provided position is empty and returns true if it is
     public boolean positionIsEmpty(int x, int y) {
         if (board[x][y] == 0) {
@@ -115,6 +105,50 @@ public class Grid {
         }
     }
 
+    //returns true if hit and false if miss
+    public boolean guessPositon(int x, int y) {
+        if (board[x][y] == UNHIT_SHIP) {
+            board[x][y] = HIT_SHIP;
+            isShipDestroyed(findWhichShip(x, y));
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //run through the 5 ships and return which ship it hit
+    private int[][] findWhichShip(int x, int y) {
+        for(int[] coordinate : carrier) {
+            if(x == coordinate[0] && y == coordinate[1]) {
+                return carrier;
+            }
+        }
+        for(int[] coordinate : battleship) {
+            if(x == coordinate[0] && y == coordinate[1]) {
+                return battleship;
+            }
+        }
+        for(int[] coordinate : cruiser) {
+            if(x == coordinate[0] && y == coordinate[1]) {
+                return cruiser;
+            }
+        }
+        for(int[] coordinate : submarine) {
+            if(x == coordinate[0] && y == coordinate[1]) {
+                return submarine;
+            }
+        }
+        for(int[] coordinate : destroyer) {
+            if(x == coordinate[0] && y == coordinate[1]) {
+                return destroyer;
+            }
+        }
+
+        return null;
+    }
+
+    //check if a given ship is destroyed and return true if it is
     public boolean isShipDestroyed(int[][] ship) {
         for(int[] coordinate : ship) {
             int positionState = board[coordinate[0]][coordinate[1]];
@@ -128,6 +162,7 @@ public class Grid {
         return true;
     }
 
+    //retun true if all the ships are sunk
     public boolean isAllShipsDestroyed() {
         if (board[carrier[0][0]][carrier[0][1]] == SUNK_SHIP &&
             board[battleship[0][0]][battleship[0][1]] == SUNK_SHIP &&
