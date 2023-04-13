@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class HumanPlayer extends Player {
 
     @Override
-    public void placeShip() {
+    public void placeShips() {
         Scanner k = new Scanner(System.in);
         placeNShip(2, k);
         placeNShip(3, k);
@@ -26,14 +26,14 @@ public class HumanPlayer extends Player {
         } while(!this.getGrid().placeShip(x0, y0, x1, y1));
     }
     @Override
-    public int[] getLocationToFireAt() {
+    public int[] getLocationToFireAt(Grid enemyGrid) {
         Scanner k = new Scanner(System.in);
         int x, y;
         do {
             System.out.print("Pick a location to fire (x, y): ");
             x = k.nextInt();
             y = k.nextInt();
-        } while(!this.getGrid().isEmpty());
+        } while(!enemyGrid.isEmpty());
 
         return new int[] {x, y};
     }

@@ -12,11 +12,16 @@ public abstract class Player {
         return grid;
     }
 
-    public void fire() {
+    public int fireAt(Player p) {
         int[] fireLocation = this.getLocationToFireAt();
-        grid.fire(fireLocation[0], fireLocation[1]);
+        p.getGrid().fire(fireLocation[0], fireLocation[1]);
+        return p.getGrid().isHit(fireLocation[0], fireLocation[1]);
     }
 
-    public abstract int[] getLocationToFireAt();
-    public abstract void placeShip(); 
+    public boolean lostAllShips() {
+
+    }
+
+    public abstract int[] getLocationToFireAt(Grid enemyGrid);
+    public abstract void placeShips(); 
 }

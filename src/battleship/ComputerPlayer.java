@@ -3,18 +3,18 @@ package battleship;
 public class ComputerPlayer extends Player {
 
     @Override
-    public int[] getLocationToFireAt(Grid grid) {
+    public int[] getLocationToFireAt(Grid enemyGrid) {
         int x, y;
         do {
-            x = (int) (Math.random() * this.getGrid().size);
-            y = (int) (Math.random() * this.getGrid().size);
-        } while(!this.getGrid().isEmpty(x, y))
+            x = (int) (Math.random() * 10);
+            y = (int) (Math.random() * 10);
+        } while(!enemyGrid.isEmpty(x, y))
         
         return new int[] {x, y};
     }
 
     @Override
-    public void placeShip() {
+    public void placeShips() {
         this.placeNShip(2);
         this.placeNShip(3);
         this.placeNShip(3);
