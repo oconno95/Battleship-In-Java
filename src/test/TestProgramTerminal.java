@@ -1,8 +1,7 @@
 package test;
 
-import java.util.Scanner;
-
 import battleship.Battleship;
+import battleship.HumanPlayer;
 
 public class TestProgramTerminal {
 
@@ -12,10 +11,9 @@ public class TestProgramTerminal {
        do {
             game.startGame();
             System.out.println("Want to play again? (y,n): ");
-            Scanner in = new Scanner(System.in);
-            playAgain = in.nextLine().charAt(0);
-            in.close();
+            playAgain = HumanPlayer.in.next().charAt(0);
        } while(playAgain == 'y');
-    }
-    
+
+       HumanPlayer.in.close();
+    }    
 }

@@ -4,36 +4,51 @@ import java.util.Scanner;
 
 public class HumanPlayer extends Player {
 
-    @Override
-    public void placeShips() {
-        Scanner k = new Scanner(System.in);
-        placeNShip(2, k);
-        placeNShip(3, k);
-        placeNShip(3, k);
-        placeNShip(4, k);
-        placeNShip(5, k);
-        k.close();
+    public static final Scanner in = new Scanner(System.in);
+
+    public HumanPlayer() {
+        name = "You";
     }
 
-    private void placeNShip(int n, Scanner k) {
-        int x0, y0, x1, y1;
+    @Override
+    public void placeShips() {
+        int[] coordinates;
         do {
-            System.out.print("Type in where the ends of the ship of length 2 will go (x0, y0, x1, y1): ");
-            x0 = k.nextInt();
-            y0 = k.nextInt();
-            x1 = k.nextInt();
-            y1 = k.nextInt();
-        } while(!this.getGrid().placeShip(x0, y0, x1, y1));
+            coordinates = getInput("Destroyer", 2);
+        } while(!this.getGrid().placeDestroyer(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        do {
+            coordinates = getInput("Cruiser", 3);
+        } while(!this.getGrid().placeCruiser(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        do {
+            coordinates = getInput("Submarine", 3);
+        } while(!this.getGrid().placeSubmarine(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        do {
+            coordinates = getInput("Battleship", 4);
+        } while(!this.getGrid().placeBattleship(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        do {
+            coordinates = getInput("Carrier", 5);
+        } while(!this.getGrid().placeCarrier(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
     }
+
+
+    private int[] getInput(String shipName, int sizeLimit) {
+        System.out.print("Type in where the ends of the ship " + shipName + " of length " + sizeLimit + " will go (x0, y0, x1, y1): ");
+        int x0 = in.nextInt();
+        int y0 = in.nextInt();
+        int x1 = in.nextInt();
+        int y1 = in.nextInt();
+
+        return new int[] {x0, y0, x1, y1};
+    }
+
     @Override
     public int[] getLocationToFireAt(Grid enemyGrid) {
-        Scanner k = new Scanner(System.in);
         int x, y;
         do {
             System.out.print("Pick a location to fire (x, y): ");
-            x = k.nextInt();
-            y = k.nextInt();
-        } while(!enemyGrid.isEmpty());
+            x = in.nextInt();
+            y = in.nextInt();
+        } while(!enemyGrid.canFireAt(x, y));
 
         return new int[] {x, y};
     }
