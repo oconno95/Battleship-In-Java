@@ -36,6 +36,25 @@ public class ButtonPanel extends JPanel {
             public void mouseExited(MouseEvent e) {}
         });
 
+        resetButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+                //restart the game
+            }
+        
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+        
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+
         this.add(resetButton);
         this.add(exitButton);
     }
