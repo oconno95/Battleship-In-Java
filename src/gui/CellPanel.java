@@ -1,0 +1,40 @@
+package gui;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+
+public class CellPanel extends JPanel {
+    public static final Color MISS_COLOR = Color.LIGHT_GRAY;
+    public static final Color HIT_COLOR = Color.RED;
+    public static final Color EMPTY_COLOR = Color.WHITE;
+    public static final Color SHIP_COLOR = Color.BLACK;
+
+    private Color defaultColor = EMPTY_COLOR;    
+    private Color currentColor = defaultColor;
+
+    public void markHit() {
+        this.update(HIT_COLOR);
+    }
+
+    public void markMiss() {
+        this.update(MISS_COLOR);
+    }
+
+    public void markShip() {
+        this.update(SHIP_COLOR);
+    }
+
+    public void changeColorOnClick() {
+        this.update(this.currentColor.darker());
+    }
+
+    public void changeColorOnMouseRelease() {
+        this.update(this.defaultColor);
+    }
+    public void update(Color newColor) {
+        this.currentColor = newColor;
+        this.setBackground(this.currentColor);
+    }
+
+}

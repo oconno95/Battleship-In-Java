@@ -1,23 +1,31 @@
 package gui;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import battleship.Battleship;
+import battleship.ComputerPlayer;
+import battleship.GuiHumanPlayer;
+import battleship.Player;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 public class Main {
+    private static final Player COM_PLAYER = new ComputerPlayer();
+    private static final GuiHumanPlayer HUMAN_PLAYER = new GuiHumanPlayer(COM_PLAYER);
+
+    public static final Battleship game = new Battleship(HUMAN_PLAYER, COM_PLAYER);
+
     public static void main(String[] args) {
         JFrame f = new JFrame();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         f.setSize(600, 400);
 
-        GridGUI playerGrid = new GridGUI();
-        GridGUI enemyGrid = new GridGUI();
+        GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
+        GridGUI enemyGrid = new GridGUIHuman(COM_PLAYER, HUMAN_PLAYER);
+
         //add padding to right of playerGrid and left of enemyGrid
         playerGrid.setBorder(new EmptyBorder(0,0,10,10));
         enemyGrid.setBorder(new EmptyBorder(0,10,10,0));

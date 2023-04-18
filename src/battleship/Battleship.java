@@ -1,16 +1,24 @@
 package battleship;
 public class Battleship {
-    private HumanPlayer humanPlayer;
-    private ComputerPlayer compPlayer;
+    private Player p1;
+    private Player p2;
     private Player winner;
 
-    public Battleship() {
-        this.reset();
+    public static int SETUP = 0;
+    public static int GAME = 1;
+    public static int END = 2;
+
+    public int state; 
+
+    public Battleship(Player p1, Player p2) {
+        this.reset(p1, p2);
     }
 
-    public void reset() {
-        this.humanPlayer = new HumanPlayer();
-        this.compPlayer = new ComputerPlayer();
+    public int getState() {return state;}
+
+    public void reset(Player p1, Player p2) {
+        this.p1 = p1;
+        this.p2 = p2;
         this.winner = null;
     }
 
@@ -21,27 +29,29 @@ public class Battleship {
     }
 
     private void performSetup() {
-        this.humanPlayer.placeShips();
-        this.compPlayer.placeShips();
+        this.state = SETUP;
+        this.p1.placeShips();
+        this.p2.placeShips();
     }
 
     private void printGrids() {
         System.out.println("Computer Grid");
-        System.out.println(this.compPlayer.getGrid());
+        System.out.println(this.p2.getGrid());
         System.out.println();
         System.out.println("Human Grid");
-        System.out.println(this.humanPlayer.getGrid());
+        System.out.println(this.p1.getGrid());
     }
     private void playGame() {
+        this.state = GAME;
         while(true) {
             printGrids();
-            performTurn(this.humanPlayer, this.compPlayer);
+            performTurn(this.p1, this.p2);
             if(winner != null) {
                 break;
             }
 
             printGrids();
-            performTurn(this.compPlayer, this.humanPlayer);
+            performTurn(this.p2, this.p1);
             if(winner != null) {
                 break;
             }
@@ -64,6 +74,7 @@ public class Battleship {
     }
 
     private void endGame() {
+        this.state = END;
         winner.printWinMessage();
     }
 }

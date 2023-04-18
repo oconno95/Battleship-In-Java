@@ -1,12 +1,13 @@
 package test;
 
 import battleship.Battleship;
+import battleship.ComputerPlayer;
 import battleship.HumanPlayer;
 
 public class TestProgramTerminal {
 
     public static void main(String[] args) {
-       Battleship game = new Battleship();
+       Battleship game = new Battleship(new HumanPlayer(), new ComputerPlayer());
        char playAgain = 'n';
        do {
             game.startGame();
