@@ -1,27 +1,37 @@
-package gui;
+package gui.mouselisteners;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MouseHandler implements MouseListener {
+import javax.swing.JPanel;
+
+public class GridCellMouseHandler implements MouseListener {
+
+    private int row, col;
+
+    public GridCellMouseHandler(int row, int col) {
+      this.row = row;
+      this.col = col;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
       //  throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
-      System.out.println("HERE");
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-      //  throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+      System.out.println("Row = " + row + ", Col = " + col);
+      JPanel source = (JPanel) e.getSource();
+      source.setBackground(Color.GRAY);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-      //  throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+      JPanel source = (JPanel) e.getSource();
+      source.setBackground(Color.WHITE);
     }
 
     @Override
@@ -32,8 +42,8 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-      //  throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+      JPanel source = (JPanel) e.getSource();
+      source.setBackground(Color.WHITE);
     }
     
 }
