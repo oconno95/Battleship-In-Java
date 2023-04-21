@@ -21,23 +21,38 @@ public class GridGUI extends JPanel {
 
         for(int r = 0; r < GRID_SIZE; r++) {
             for(int c = 0; c < GRID_SIZE; c++) {
-                final CellPanel cell = new CellPanel();
+                final CellPanel cell = new CellPanel(r,c);
                 cell.setEnabled(true);
                 cell.setBackground(Color.WHITE);
                 cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 cell.setPreferredSize(new Dimension(100, 100));
-               // cell.addMouseListener(new GridCellMouseHandler(r, c, p));
                 this.add(cell);
             }
         }
     }
 
     public void updateFire(int row, int col, int result) {
-        CellPanel panel = (CellPanel) this.getComponent((row * GRID_SIZE) + col);
+        CellPanel panel = getCell(row, col);
         if(result == Grid.MISS) {
             panel.markMiss();
         } else if(result == Grid.HIT_SHIP || result == Grid.SUNK_SHIP) {
             panel.markHit();
         }
     }
+
+    public void updateShip(int row, int col, int direction, int length) {
+        CellPanel panel = getCell(row, col);
+        switch (direction) {
+            
+        }
+    }
+
+    public CellPanel getCell(int row, int col) {
+        int i = (row*GRID_SIZE) + col;
+        if(i < 0 || i >= this.getComponentCount()) {
+            return null;
+        }
+        return (CellPanel) this.getComponent(i);
+    }
+    
 }

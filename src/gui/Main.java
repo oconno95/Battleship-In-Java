@@ -7,7 +7,10 @@ import battleship.Battleship;
 import battleship.ComputerPlayer;
 import battleship.GuiHumanPlayer;
 import battleship.Player;
+import gui.mouselisteners.GridCellMouseHandler;
+import gui.mouselisteners.GridCellPlaceShipMouseHandler;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -23,8 +26,17 @@ public class Main {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         f.setSize(600, 400);
 
+        //create player grid and add mouse listeners so that player can place ships
         GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
-        GridGUI enemyGrid = new GridGUIHuman(COM_PLAYER, HUMAN_PLAYER);
+        for(Component c : playerGrid.getComponents()) {
+            c.addMouseListener(new GridCellPlaceShipMouseHandler(HUMAN_PLAYER));
+        }
+
+        //create enemys grid and add mouse listeners so that player can fire at enemy
+        GridGUI enemyGrid = new GridGUI(COM_PLAYER);
+        for(Component c : enemyGrid.getComponents()) {
+            c.addMouseListener(new GridCellMouseHandler(HUMAN_PLAYER));
+        }
 
         //add padding to right of playerGrid and left of enemyGrid
         playerGrid.setBorder(new EmptyBorder(0,0,10,10));

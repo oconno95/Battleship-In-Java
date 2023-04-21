@@ -13,6 +13,17 @@ public class CellPanel extends JPanel {
     private Color defaultColor = EMPTY_COLOR;    
     private Color currentColor = defaultColor;
 
+    private int row, col;
+
+    public CellPanel(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
+    public int getRow() {return row;}
+    public int getCol() {return col;}
+
+
     public void markHit() {
         this.update(HIT_COLOR);
     }
