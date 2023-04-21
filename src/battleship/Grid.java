@@ -6,6 +6,7 @@ public class Grid {
     public static final int HIT_SHIP = 2;
     public static final int UNHIT_SHIP = 3;
     public static final int SUNK_SHIP = 4;
+    public static final int INVALID_SHOT = 5;
 
     private int[][] board = new int[10][10];
 
@@ -15,6 +16,15 @@ public class Grid {
     private int[][] submarine   = new int[3][2];
     private int[][] destroyer   = new int[2][2];
     
+
+    public void reset() {
+        board       = new int[10][10];
+        carrier     = new int[5][2];
+        battleship  = new int[4][2];
+        cruiser     = new int[3][2];
+        submarine   = new int[3][2];
+        destroyer   = new int[2][2];
+    }
 
     private boolean placePoint(int x, int y) {
         if (board[y][x] == EMPTY) {
@@ -135,9 +145,11 @@ public class Grid {
                 return SUNK_SHIP;
             }
             return HIT_SHIP;
+        } else if(board[y][x] == EMPTY) {
+            board[y][x] = MISS;
+            return MISS;
         }
-        board[y][x] = MISS;
-        return MISS;
+        return INVALID_SHOT;
     }
 
     //run through the 5 ships and return which ship it hit
