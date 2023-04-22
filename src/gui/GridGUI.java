@@ -3,15 +3,18 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import battleship.Grid;
+import battleship.GuiHumanPlayer;
 import battleship.Player;
 
 public class GridGUI extends JPanel {
     public static final int GRID_SIZE = 10;
+    private ArrayList<CellPanel> selectedCells = new ArrayList<CellPanel>();
     private Player player;
     
     public GridGUI(Player p) {
@@ -31,23 +34,79 @@ public class GridGUI extends JPanel {
         }
     }
 
-    public void updateFire(int row, int col, int result) {
-        CellPanel panel = getCell(row, col);
-        if(result == Grid.MISS) {
-            panel.markMiss();
-        } else if(result == Grid.HIT_SHIP || result == Grid.SUNK_SHIP) {
-            panel.markHit();
-        }
-    }
+    public final ArrayList<CellPanel> getSelectedCells() {return this.selectedCells;}
 
-    public void updateShip(int row, int col, int direction, int length) {
-        CellPanel panel = getCell(row, col);
-        switch (direction) {
+
+    public void selectAllCells(int row, int col, int length, int direction) {
+        for(CellPanel cell : this.selectedCells) {
+            cell.markDefault();
+        }
+        this.selectedCells.clear();
+        int rowIter = 0;
+        int colIter = 0;
+
+        switch(direction) {
+            case GuiHumanPlayer.LEFT:
+                colIter = -1;
+                break;
+            case GuiHumanPlayer.RIGHT:
+                colIter = 1;
+                break;
+            case GuiHumanPlayer.UP:
+                rowIter = -1;
+                break;
+            default: 
+                rowIter = 1;
+                break;
+        }
+
+        int r = row;
+        int c = col;
+
+        for(int i = 0; i < length; i++) {
+            CellPanel cell = this.getCell(r,c);
+            if(cell == null || cell.getDefaultColor() == CellPanel.SHIP_COLOR) {
+                for(CellPanel p : this.selectedCells) {
+                    p.markInvalidSelected();
+                }
+                return;
+            }
+
+            cell.markSelected();
+            this.selectedCells.add(cell);
+            r += rowIter;
+            c += colIter;
             
         }
     }
 
+    public void updateGUI() {
+        for(int r = 0; r < 10; r++) {
+            for(int c = 0; c < 10; c++) {
+                int cell = player.getGrid().getCell(c, r);
+                switch(cell) {
+                    case Grid.HIT_SHIP:
+                    case Grid.SUNK_SHIP:
+                        getCell(r,c).markHit();
+                        break;
+                    case Grid.MISS:
+                        getCell(r,c).markMiss();
+                        break;
+                    case Grid.UNHIT_SHIP:
+                        getCell(r,c).markShip();
+                        break;
+                    default:
+                        getCell(r,c).markEmpty();
+
+                }
+            }
+        }
+    }
+
     public CellPanel getCell(int row, int col) {
+        if(row < 0 || row >= 10 || col < 0 || col >= 10) {
+            return null;
+        }
         int i = (row*GRID_SIZE) + col;
         if(i < 0 || i >= this.getComponentCount()) {
             return null;

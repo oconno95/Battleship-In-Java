@@ -18,6 +18,8 @@ public class GridCellMouseHandler implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {}
+    @Override
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -32,23 +34,18 @@ public class GridCellMouseHandler implements MouseListener {
       System.out.println("Row = " + row + ", Col = " + col);
       
 
-      source.changeColorOnClick();
 
       human.setLocation(row, col);
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseEntered(MouseEvent e) {
       if(Main.game.getState() != Battleship.GAME) {
         return;
       }
-
       CellPanel source = (CellPanel) e.getSource();
-      source.changeColorOnMouseRelease();
+      source.markSelected();
     }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
 
     @Override
     public void mouseExited(MouseEvent e) {
@@ -57,7 +54,7 @@ public class GridCellMouseHandler implements MouseListener {
       }
       
       CellPanel source = (CellPanel) e.getSource();
-      source.changeColorOnMouseRelease();
+      source.markDefault();
 
     }
     

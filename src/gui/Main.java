@@ -17,23 +17,24 @@ import java.awt.Insets;
 
 public class Main {
     private static final Player COM_PLAYER = new ComputerPlayer();
-    private static final GuiHumanPlayer HUMAN_PLAYER = new GuiHumanPlayer(COM_PLAYER);
+    private static final GuiHumanPlayer HUMAN_PLAYER = new GuiHumanPlayer();
 
     public static final Battleship game = new Battleship(HUMAN_PLAYER, COM_PLAYER);
+    public static final GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
+    public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER);
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        f.setSize(600, 400);
+        f.setSize(800, 800);
 
         //create player grid and add mouse listeners so that player can place ships
-        GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
         for(Component c : playerGrid.getComponents()) {
             c.addMouseListener(new GridCellPlaceShipMouseHandler(HUMAN_PLAYER));
         }
+        
 
         //create enemys grid and add mouse listeners so that player can fire at enemy
-        GridGUI enemyGrid = new GridGUI(COM_PLAYER);
         for(Component c : enemyGrid.getComponents()) {
             c.addMouseListener(new GridCellMouseHandler(HUMAN_PLAYER));
         }
@@ -72,4 +73,7 @@ public class Main {
         f.setResizable(true);
         f.setVisible(true);
     }
+
+
+
 }

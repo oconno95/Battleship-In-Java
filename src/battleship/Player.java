@@ -16,6 +16,8 @@ public abstract class Player {
         grid = new Grid();
     }
 
+    public int getState() {return state;}
+
     public void reset() {
         this.grid.reset();
     }

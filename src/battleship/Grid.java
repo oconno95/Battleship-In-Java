@@ -26,14 +26,8 @@ public class Grid {
         destroyer   = new int[2][2];
     }
 
-    private boolean placePoint(int x, int y) {
-        if (board[y][x] == EMPTY) {
-            board[y][x] = UNHIT_SHIP;
-            return true;
-        }
-        else {
-            return false;
-        }
+    public int getCell(int x, int y) {
+        return board[y][x];
     }
 
     private void addShipPoint(int[][] ship, int position, int x, int y) {
@@ -63,14 +57,14 @@ public class Grid {
             }
         }
         else if (y1 < y2) {
-            for (int y = y1, i = 0; i <= y2; i++, y++) {
+            for (int y = y1, i = 0; y <= y2; i++, y++) {
                 if(i >= length) return false;
                 if (!positionIsEmpty(x1, y)) return false;
                 else addShipPoint(ship, i, x1, y);
             }
         }
         else {
-            for (int y = y2, i = 0; i <= y1; i++, y++) {
+            for (int y = y2, i = 0; y <= y1; i++, y++) {
                 if(i >= length) return false;
                 if (!positionIsEmpty(x1, y)) return false;
                 else addShipPoint(ship, i, x1, y);
