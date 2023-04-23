@@ -10,6 +10,11 @@ import gui.CellPanel;
 import gui.GridGUI;
 import gui.Main;
 
+
+/**
+ * This is the mouse handler used for each CellPanel in GridGUI for the GuiHumanPlayer.
+ * This allows the user to place down their 5 ships in the correct spot.
+ */
 public class GridCellPlaceShipMouseHandler implements MouseListener {
 
     private GuiHumanPlayer player;
@@ -61,10 +66,12 @@ public class GridCellPlaceShipMouseHandler implements MouseListener {
     //when user hovers over Grid.
     @Override
     public void mouseEntered(MouseEvent e) {
+        //make sure that the game is still in setup mode
         if(Main.game.getState() != Battleship.SETUP) {
             return;
         }
 
+        //when hovering over a cell, select all valid panels with the same length as the ship being placed.
         CellPanel cell = (CellPanel) e.getSource();
         ((GridGUI)cell.getParent()).selectAllCells(cell.getRow(), cell.getCol(), player.getNumberCellsOnShip(), player.placeShipDirection);
     }

@@ -19,6 +19,9 @@ public class Main {
     private static final Player COM_PLAYER = new ComputerPlayer();
     private static final GuiHumanPlayer HUMAN_PLAYER = new GuiHumanPlayer();
 
+
+    //PUBLIC STATIC FINAL variables that can be accessed throughout the entire program.
+    //Because only one of these objects will ever exist, this should be OK.
     public static final Battleship game = new Battleship(HUMAN_PLAYER, COM_PLAYER);
     public static final GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
     public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER);

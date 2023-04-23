@@ -8,6 +8,10 @@ import battleship.GuiHumanPlayer;
 import gui.CellPanel;
 import gui.Main;
 
+/**
+ * This class is for the cells in the GridGUI for the enemy computer player.
+ * This is where the user can click on a cell to fire at an enemy ship.
+ */
 public class GridCellMouseHandler implements MouseListener {
 
     private GuiHumanPlayer human;

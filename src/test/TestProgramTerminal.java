@@ -20,9 +20,11 @@ public class TestProgramTerminal {
        char playAgain = 'n';
        do {
             game.reset();
+            
+            //have players place their ships
             placeShips(game.getCurrentPlayer());
             placeShips(game.getEnemyPlayer());
-            game.startGame();
+            game.startGame(); //set the game state to GAME
 
             System.out.println("Your Grid:");
             game.printCurrentPlayerGrid();
@@ -30,6 +32,7 @@ public class TestProgramTerminal {
             System.out.println("Computer Grid:");
             game.printEnemyPlayerGrid();
 
+            //have the players keep firing until the game ends
             while(game.getState() != Battleship.END) {
                 game.fire();
                 game.printCurrentPlayerGrid();

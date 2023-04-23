@@ -91,6 +91,7 @@ public class GuiHumanPlayer extends Player {
         System.out.println(this.getGrid().toString());
     }
 
+    //when the player selects a point on the GUI, find the 2nd end of the ship being placed.
     private int[] getSecondEndPoint(int x, int y, int length) {
         switch(placeShipDirection) {
             case LEFT:

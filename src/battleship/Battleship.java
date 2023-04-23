@@ -1,4 +1,14 @@
 package battleship;
+
+/**
+ * WARNING:
+ * This was refactored so that this program can be used in event-driven programs.
+ * Thus, it is important to call these functions in the correct order because there is 
+ * currently very little error handling checking if the functions being called are 
+ * supposed to be called. For example, calling fire() when the game state is SETUP may
+ * break something.
+ * 
+ */
 public class Battleship {
     private Player p1;
     private Player p2;
@@ -13,6 +23,7 @@ public class Battleship {
 
 
     private int state; 
+
 
     public Battleship(Player p1, Player p2) {
         this.p1 = p1;

@@ -18,6 +18,7 @@ public class ButtonPanel extends JPanel {
 
         //add mouse listeners
 
+        //this will reset the battleship game
         resetButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {}
@@ -39,6 +40,7 @@ public class ButtonPanel extends JPanel {
             public void mouseExited(MouseEvent e) {}
         });
         
+        //this will close the program
         exitButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {}

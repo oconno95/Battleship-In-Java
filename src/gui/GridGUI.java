@@ -12,6 +12,11 @@ import battleship.Grid;
 import battleship.GuiHumanPlayer;
 import battleship.Player;
 
+/**
+ * GridGUI represents the Grid object in the battleship package in GUI form.
+ * It holds a list of CellPanels that it uses for each square in its grid.
+ * MouseListeners can be added to this object to make it interactable.
+ */
 public class GridGUI extends JPanel {
     public static final int GRID_SIZE = 10;
     private ArrayList<CellPanel> selectedCells = new ArrayList<CellPanel>();
@@ -37,6 +42,10 @@ public class GridGUI extends JPanel {
     public final ArrayList<CellPanel> getSelectedCells() {return this.selectedCells;}
 
 
+    //This function makes it easier to select a group of cells that represent the space where
+    //a ship can be. This allows the cells to be highlighted green. If the selected cells overflow
+    //to a separate row or column such that a ship cannot be properly placed there, the selected
+    //cells will be highlighted red.
     public void selectAllCells(int row, int col, int length, int direction) {
         for(CellPanel cell : this.selectedCells) {
             cell.markDefault();
