@@ -10,27 +10,6 @@ public class HumanPlayer extends Player {
         name = "You";
     }
 
-    @Override
-    public void placeShips() {
-        int[] coordinates;
-        do {
-            coordinates = getInput("Destroyer", 2);
-        } while(!this.getGrid().placeDestroyer(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        do {
-            coordinates = getInput("Cruiser", 3);
-        } while(!this.getGrid().placeCruiser(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        do {
-            coordinates = getInput("Submarine", 3);
-        } while(!this.getGrid().placeSubmarine(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        do {
-            coordinates = getInput("Battleship", 4);
-        } while(!this.getGrid().placeBattleship(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        do {
-            coordinates = getInput("Carrier", 5);
-        } while(!this.getGrid().placeCarrier(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-    }
-
-
     private int[] getInput(String shipName, int sizeLimit) {
         System.out.print("Type in where the ends of the ship " + shipName + " of length " + sizeLimit + " will go (x0, y0, x1, y1): ");
         int x0 = in.nextInt();
@@ -51,6 +30,51 @@ public class HumanPlayer extends Player {
         } while(!enemyGrid.canFireAt(x, y));
 
         return new int[] {x, y};
+    }
+
+    @Override
+    public boolean placeDestroyer() {
+        int[] coordinates;
+        do {
+            coordinates = getInput("Destroyer", 2);
+        } while(!this.getGrid().placeDestroyer(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+    }
+
+    @Override
+    public boolean placeCruiser() {
+        int[] coordinates;
+        do {
+            coordinates = getInput("Cruiser", 3);
+        } while(!this.getGrid().placeCruiser(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+    }
+
+    @Override
+    public boolean placeSubmarine() {
+        int[] coordinates;
+        do {
+            coordinates = getInput("Submarine", 3);
+        } while(!this.getGrid().placeSubmarine(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+    }
+
+    @Override
+    public boolean placeBattleship() {
+        int[] coordinates;
+        do {
+            coordinates = getInput("Battleship", 4);
+        } while(!this.getGrid().placeBattleship(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+    }
+
+    @Override
+    public boolean placeCarrier() {
+        int[] coordinates;
+        do {
+            coordinates = getInput("Carrier", 5);
+        } while(!this.getGrid().placeCarrier(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
     }
 
     

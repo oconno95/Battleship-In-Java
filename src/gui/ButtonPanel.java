@@ -15,8 +15,32 @@ public class ButtonPanel extends JPanel {
 
         final JButton resetButton = new JButton("Restart Game");
         final JButton exitButton = new JButton("Exit Game");
-        
+
         //add mouse listeners
+
+        //this will reset the battleship game
+        resetButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+              Main.game.reset();
+              Main.enemyGrid.updateGUI();
+              Main.playerGrid.updateGUI();
+            }
+        
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+        
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        
+        //this will close the program
         exitButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {}

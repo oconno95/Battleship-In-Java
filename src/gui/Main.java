@@ -1,23 +1,47 @@
 package gui;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import battleship.Battleship;
+import battleship.ComputerPlayer;
+import battleship.GuiHumanPlayer;
+import battleship.Player;
+import gui.mouselisteners.GridCellMouseHandler;
+import gui.mouselisteners.GridCellPlaceShipMouseHandler;
+
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 public class Main {
+    private static final Player COM_PLAYER = new ComputerPlayer();
+    private static final GuiHumanPlayer HUMAN_PLAYER = new GuiHumanPlayer();
+
+
+    //PUBLIC STATIC FINAL variables that can be accessed throughout the entire program.
+    //Because only one of these objects will ever exist, this should be OK.
+    public static final Battleship game = new Battleship(HUMAN_PLAYER, COM_PLAYER);
+    public static final GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
+    public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER);
+
     public static void main(String[] args) {
         JFrame f = new JFrame();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        f.setSize(600, 400);
+        f.setSize(800, 800);
 
-        GridGUI playerGrid = new GridGUI();
-        GridGUI enemyGrid = new GridGUI();
+        //create player grid and add mouse listeners so that player can place ships
+        for(Component c : playerGrid.getComponents()) {
+            c.addMouseListener(new GridCellPlaceShipMouseHandler(HUMAN_PLAYER));
+        }
+        
+
+        //create enemys grid and add mouse listeners so that player can fire at enemy
+        for(Component c : enemyGrid.getComponents()) {
+            c.addMouseListener(new GridCellMouseHandler(HUMAN_PLAYER));
+        }
+
         //add padding to right of playerGrid and left of enemyGrid
         playerGrid.setBorder(new EmptyBorder(0,0,10,10));
         enemyGrid.setBorder(new EmptyBorder(0,10,10,0));
@@ -52,4 +76,7 @@ public class Main {
         f.setResizable(true);
         f.setVisible(true);
     }
+
+
+
 }

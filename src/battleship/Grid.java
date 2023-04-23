@@ -6,6 +6,7 @@ public class Grid {
     public static final int HIT_SHIP = 2;
     public static final int UNHIT_SHIP = 3;
     public static final int SUNK_SHIP = 4;
+    public static final int INVALID_SHOT = 5;
 
     private int[][] board = new int[10][10];
 
@@ -16,14 +17,17 @@ public class Grid {
     private int[][] destroyer   = new int[2][2];
     
 
-    private boolean placePoint(int x, int y) {
-        if (board[y][x] == EMPTY) {
-            board[y][x] = UNHIT_SHIP;
-            return true;
-        }
-        else {
-            return false;
-        }
+    public void reset() {
+        board       = new int[10][10];
+        carrier     = new int[5][2];
+        battleship  = new int[4][2];
+        cruiser     = new int[3][2];
+        submarine   = new int[3][2];
+        destroyer   = new int[2][2];
+    }
+
+    public int getCell(int x, int y) {
+        return board[y][x];
     }
 
     private void addShipPoint(int[][] ship, int position, int x, int y) {
@@ -53,14 +57,14 @@ public class Grid {
             }
         }
         else if (y1 < y2) {
-            for (int y = y1, i = 0; i <= y2; i++, y++) {
+            for (int y = y1, i = 0; y <= y2; i++, y++) {
                 if(i >= length) return false;
                 if (!positionIsEmpty(x1, y)) return false;
                 else addShipPoint(ship, i, x1, y);
             }
         }
         else {
-            for (int y = y2, i = 0; i <= y1; i++, y++) {
+            for (int y = y2, i = 0; y <= y1; i++, y++) {
                 if(i >= length) return false;
                 if (!positionIsEmpty(x1, y)) return false;
                 else addShipPoint(ship, i, x1, y);
@@ -135,9 +139,11 @@ public class Grid {
                 return SUNK_SHIP;
             }
             return HIT_SHIP;
+        } else if(board[y][x] == EMPTY) {
+            board[y][x] = MISS;
+            return MISS;
         }
-        board[y][x] = MISS;
-        return MISS;
+        return INVALID_SHOT;
     }
 
     //run through the 5 ships and return which ship it hit

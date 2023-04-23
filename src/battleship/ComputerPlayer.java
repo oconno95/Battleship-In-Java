@@ -17,36 +17,6 @@ public class ComputerPlayer extends Player {
         return new int[] {x, y};
     }
 
-    @Override
-    public void placeShips() {
-        int[] coordinates;
-        do {
-            coordinates = getPositionsOfNShip(2);
-        } while(!this.getGrid().placeDestroyer(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        System.out.println(coordinates[0] + " " + coordinates[1] + " " + coordinates[2] + " " + coordinates[3]);
-
-        do {
-            coordinates = getPositionsOfNShip(3);
-        } while(!this.getGrid().placeCruiser(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        System.out.println(coordinates[0] + " " + coordinates[1] + " " + coordinates[2] + " " + coordinates[3]);
-
-        do {
-            coordinates = getPositionsOfNShip(3);
-        } while(!this.getGrid().placeSubmarine(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        System.out.println(coordinates[0] + " " + coordinates[1] + " " + coordinates[2] + " " + coordinates[3]);
-
-        do {
-            coordinates = getPositionsOfNShip(4);
-        } while(!this.getGrid().placeBattleship(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        System.out.println(coordinates[0] + " " + coordinates[1] + " " + coordinates[2] + " " + coordinates[3]);
-
-        do {
-            coordinates = getPositionsOfNShip(5);
-        } while(!this.getGrid().placeCarrier(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
-        System.out.println(coordinates[0] + " " + coordinates[1] + " " + coordinates[2] + " " + coordinates[3]);
-
-    }
-
     private int[] getPositionsOfNShip(int length) {
         int x0, y0, x1, y1;
         x0 = (int) (Math.random() * 10);
@@ -78,6 +48,49 @@ public class ComputerPlayer extends Player {
                 break;
         }
         return new int[] {x0, y0, x1, y1};
+    }
+    @Override
+    public boolean placeDestroyer() {
+        int[] coordinates;
+        do {
+            coordinates = getPositionsOfNShip(2);
+        } while(!this.getGrid().placeDestroyer(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+    }
+    @Override
+    public boolean placeCruiser() {
+        int[] coordinates;
+        do {
+            coordinates = getPositionsOfNShip(3);
+        } while(!this.getGrid().placeCruiser(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+    }
+    @Override
+    public boolean placeSubmarine() {
+        int[] coordinates;
+        do {
+            coordinates = getPositionsOfNShip(3);
+        } while(!this.getGrid().placeSubmarine(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+
+    }
+    @Override
+    public boolean placeBattleship() {
+        int[] coordinates;
+        do {
+            coordinates = getPositionsOfNShip(4);
+        } while(!this.getGrid().placeBattleship(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+
+    }
+    @Override
+    public boolean placeCarrier() {
+        int[] coordinates;
+        do {
+            coordinates = getPositionsOfNShip(5);
+        } while(!this.getGrid().placeCarrier(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+        return true;
+
     }
 
   
