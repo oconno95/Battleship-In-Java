@@ -12,6 +12,7 @@ public class GuiHumanPlayer extends Player {
 
     public GuiHumanPlayer() {
         super();
+        this.name = "You";
         this.state = PLACING_DESTROYER;
     }
 

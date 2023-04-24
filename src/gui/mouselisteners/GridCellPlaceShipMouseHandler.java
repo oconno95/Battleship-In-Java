@@ -43,8 +43,30 @@ public class GridCellPlaceShipMouseHandler implements MouseListener {
         } 
         //left click places a ship and updates the players grid gui
         else if(e.getButton() == MouseEvent.BUTTON1) {
+            int oldState = player.getState();
             player.placeShip(cell.getRow(), cell.getCol());
             grid.updateGUI();
+
+            //change the message displayed to ship what ship to place down next
+            if(oldState != player.getState()) {
+                switch(player.getState()) {
+                    case Player.PLACING_CRUISOR:
+                        Main.MESSAGE_PANEL.setMessage("Please place your crusier.");
+                        break;
+                    case Player.PLACING_SUBMARINE:
+                        Main.MESSAGE_PANEL.setMessage("Please place your submarine.");
+                        break;
+                    case Player.PLACING_BATTLESHIP:
+                        Main.MESSAGE_PANEL.setMessage("Please place your battleship.");
+                        break;
+                    case Player.PLACING_CARRIER:
+                        Main.MESSAGE_PANEL.setMessage("Please place your carrier.");
+                        break;
+                    default:
+                        Main.MESSAGE_PANEL.setMessage("Please place your destroyer.");
+                        break;
+                }
+            }
 
             //if the player has finished placing ships, have the computer set up their ships and
             // start the game
@@ -57,6 +79,7 @@ public class GridCellPlaceShipMouseHandler implements MouseListener {
                 Main.enemyGrid.updateGUI();
 
                 Main.game.startGame();
+                Main.MESSAGE_PANEL.setMessage("Game has Started!");
             }
         }
 
