@@ -18,6 +18,7 @@ public abstract class Player {
     }
 
     public int getState() {return state;}
+    public String getCurrentMessage() {return this.currentMessage;}
 
     public void reset() {
         this.grid.reset();
@@ -36,24 +37,24 @@ public abstract class Player {
         return this.grid.isAllShipsDestroyed();
     }
 
-    public String getMissMessage() {
-        return this.name + " has missed.";
+    public void useMissMessage() {
+        this.currentMessage = this.name + " has missed.";
     }
 
-    public String getHitMessage() {
-        return this.name + " has hit a ship.";
+    public void useHitMessage() {
+        this.currentMessage = this.name + " has hit a ship.";
     }
 
-    public String getSunkMessage() {
-        return this.name + " has sunk a ship.";
+    public void useSunkMessage() {
+        this.currentMessage = this.name + " has sunk a ship.";
     }
 
-    public String getWinMessage() {
-        return this.name + " has won the game.";
+    public void useWinMessage() {
+        this.currentMessage = this.name + " has won the game.";
     }
 
-    public String getInvalidShotMessage() {
-        return this.name + " has made an invalid move, try again!";
+    public void useInvalidShotMessage() {
+        this.currentMessage = this.name + " has made an invalid move, try again!";
     }
 
     public abstract int[] getLocationToFireAt(Grid enemyGrid);
