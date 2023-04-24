@@ -1,14 +1,10 @@
 package gui;
 
+import battleship.*;
+import gui.mouselisteners.*;
+
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
-
-import battleship.Battleship;
-import battleship.ComputerPlayer;
-import battleship.GuiHumanPlayer;
-import battleship.Player;
-import gui.mouselisteners.GridCellMouseHandler;
-import gui.mouselisteners.GridCellPlaceShipMouseHandler;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -18,7 +14,6 @@ import java.awt.Insets;
 public class Main {
     private static final Player COM_PLAYER = new ComputerPlayer();
     private static final GuiHumanPlayer HUMAN_PLAYER = new GuiHumanPlayer();
-
 
     //PUBLIC STATIC FINAL variables that can be accessed throughout the entire program.
     //Because only one of these objects will ever exist, this should be OK.

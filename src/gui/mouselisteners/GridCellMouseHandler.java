@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import battleship.Battleship;
 import battleship.GuiHumanPlayer;
 import gui.CellPanel;
+import gui.GridGUI;
 import gui.Main;
 
 /**
@@ -37,9 +38,16 @@ public class GridCellMouseHandler implements MouseListener {
 
       System.out.println("Row = " + row + ", Col = " + col);
       
-
-
       human.setLocation(row, col);
+
+      if (Main.game.getState() != Battleship.END) {
+        if (Main.game.fire()) {
+          Main.game.fire();
+          ((GridGUI) source.getParent()).updateGUI();
+          Main.playerGrid.updateGUI();
+        }
+      }
+
     }
 
     @Override

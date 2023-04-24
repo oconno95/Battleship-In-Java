@@ -95,8 +95,10 @@ public class GridGUI extends JPanel {
                 int cell = player.getGrid().getCell(c, r);
                 switch(cell) {
                     case Grid.HIT_SHIP:
-                    case Grid.SUNK_SHIP:
                         getCell(r,c).markHit();
+                        break;
+                    case Grid.SUNK_SHIP:
+                        getCell(r,c).markSink();
                         break;
                     case Grid.MISS:
                         getCell(r,c).markMiss();
@@ -106,7 +108,6 @@ public class GridGUI extends JPanel {
                         break;
                     default:
                         getCell(r,c).markEmpty();
-
                 }
             }
         }

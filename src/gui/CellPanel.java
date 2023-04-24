@@ -11,12 +11,13 @@ import javax.swing.JPanel;
  * while remembering to switch back to its previous color when calling markDefault.
  */
 public class CellPanel extends JPanel {
-    public static final Color MISS_COLOR = Color.LIGHT_GRAY;
+    public static final Color MISS_COLOR = Color.BLUE.brighter();
     public static final Color HIT_COLOR = Color.RED;
+    public static final Color SUNK_COLOR = Color.RED.darker();
     public static final Color EMPTY_COLOR = Color.WHITE;
-    public static final Color SHIP_COLOR = Color.BLACK;
+    public static final Color SHIP_COLOR = Color.LIGHT_GRAY;
     public static final Color VALID_SELECT_COLOR = Color.GREEN.brighter();
-    public static final Color INVALID_SELECT_COLOR = Color.RED;
+    public static final Color INVALID_SELECT_COLOR = Color.RED.brighter();
 
 
     private Color defaultColor = EMPTY_COLOR;    
@@ -43,6 +44,11 @@ public class CellPanel extends JPanel {
         this.update(HIT_COLOR);
     }
 
+    public void markSink() {
+        this.setDefaultColor(SUNK_COLOR); //this is permanently left this color
+        this.update(SUNK_COLOR);
+    }
+
     public void markMiss() {
         this.setDefaultColor(MISS_COLOR); //this is permanently left this color
         this.update(MISS_COLOR);
@@ -54,6 +60,7 @@ public class CellPanel extends JPanel {
     }
 
     public void markEmpty() {
+        this.setDefaultColor(EMPTY_COLOR);
         this.update(EMPTY_COLOR);
     }
 
