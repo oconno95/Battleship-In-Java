@@ -1,19 +1,110 @@
 package battleship;
 
 public class ComputerPlayer extends Player {
+    int difficulty;
 
-
-    public ComputerPlayer() {
+    public ComputerPlayer() {this(0);}
+    public ComputerPlayer(int difficulty) {
+        this.difficulty = difficulty;
         name = "Computer";
     }
     @Override
     public int[] getLocationToFireAt(Grid enemyGrid) {
-        int x, y;
-        do {
-            x = (int) (Math.random() * 10);
-            y = (int) (Math.random() * 10);
-        } while(!enemyGrid.canFireAt(x, y));
+        int x = -1;
+        int y = -1;
+
+        if (difficulty == 0) {
+            do {
+                x = (int) (Math.random() * 10);
+                y = (int) (Math.random() * 10);
+            } while(!enemyGrid.canFireAt(x, y));
+        }
+        else if (difficulty == 1) {
+            outerloop:
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (enemyGrid.getCell(i, j) == Grid.HIT_SHIP) {
+                        for (int r = 0; r < 4; r++) {
+                            if (r == 0) {
+                                x = i+1;
+                                y = j;
+                            }
+                            else if (r == 1) {
+                                x = i-1;
+                                y = j;
+                            }
+                            else if (r == 2) {
+                                x = i;
+                                y = j+1;
+                            }
+                            else {
+                                x = i;
+                                y = j-1;
+                            }
+                            
+                            if ((enemyGrid.pointIsOnGrid(x, y) && enemyGrid.canFireAt(x, y))) break outerloop;
+                        }
+                    }
+                }
+            }
+            if (x == -1) {
+                do {
+                    x = (int) (Math.random() * 10);
+                    y = (int) (Math.random() * 10);
+                } while(!enemyGrid.canFireAt(x, y));
+            }
+        }
+        else if (difficulty == 2) {
+            outerloop:
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (enemyGrid.getCell(i, j) == Grid.HIT_SHIP) {
+                        for (int r = 0; r < 4; r++) {
+                            if (r == 0) {
+                                x = i+1;
+                                y = j;
+                            }
+                            else if (r == 1) {
+                                x = i-1;
+                                y = j;
+                            }
+                            else if (r == 2) {
+                                x = i;
+                                y = j+1;
+                            }
+                            else {
+                                x = i;
+                                y = j-1;
+                            }
+                            
+                            if ((enemyGrid.pointIsOnGrid(x, y) && enemyGrid.canFireAt(x, y))) break outerloop;
+                        }
+                    }
+                }
+            }
+            randomPoint:
+            if (x == -1) {
+                for (int i = 0; i < 10; i++) {
+                    x = (int) (Math.random() * 10);
+                    y = (int) (Math.random() * 10);
+
+                    if ((!enemyGrid.pointIsOnGrid(x+1, y) || enemyGrid.canFireAt(x+1, y)) &&
+                        (!enemyGrid.pointIsOnGrid(x-1, y) || enemyGrid.canFireAt(x-1, y)) &&
+                        (!enemyGrid.pointIsOnGrid(x, y+1) || enemyGrid.canFireAt(x, y+1)) &&
+                        (!enemyGrid.pointIsOnGrid(x, y-1) || enemyGrid.canFireAt(x, y-1)) && 
+                        (enemyGrid.canFireAt(x, y))) {
+                            break randomPoint;
+                    }
+                }
+                
+                do {
+                    x = (int) (Math.random() * 10);
+                    y = (int) (Math.random() * 10);
+                } while(!enemyGrid.canFireAt(x, y));
+            }
+        }
         
+        System.out.println("Computer Guess: " + y + ", " + x);
         return new int[] {x, y};
     }
 
@@ -93,6 +184,4 @@ public class ComputerPlayer extends Player {
 
     }
 
-  
-    
 }

@@ -42,6 +42,7 @@ public class GridCellMouseHandler implements MouseListener {
 
       if (Main.game.getState() != Battleship.END) {
         if (Main.game.fire()) {
+          //try {Thread.sleep(1000);} catch (InterruptedException e1) {e1.printStackTrace();}
           Main.game.fire();
           ((GridGUI) source.getParent()).updateGUI();
           Main.playerGrid.updateGUI();
