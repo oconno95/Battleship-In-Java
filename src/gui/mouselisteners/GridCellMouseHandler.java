@@ -38,12 +38,24 @@ public class GridCellMouseHandler implements MouseListener {
 
       System.out.println("Row = " + row + ", Col = " + col);
       
-      human.setLocation(row, col);
+      human.setLocation(row, col); //required so that the GuiHumanPlayer can fire at the correct spot
 
       if (Main.game.getState() != Battleship.END) {
+        //if the currentPlayer (GuiHumanPlayer) fires a valid shot, the computer will fire when main.game.fire is called again
         if (Main.game.fire()) {
-          Main.game.fire();
-          Main.MESSAGE_PANEL.setMessage(Main.game.getCurrentPlayer().getCurrentMessage());
+          Main.game.fire(); //computer player will always make a valid shot, so no need to check return value
+
+          //if game has ended, display the win message.
+          if(Main.game.gameHasEnded()) {
+            Main.game.getWinner().useWinMessage();
+            Main.MESSAGE_PANEL.setMessage(Main.game.getWinner().getCurrentMessage());
+          } else {
+            Main.MESSAGE_PANEL.setMessage(
+              Main.game.getCurrentPlayer().getCurrentMessage() + " " + 
+              Main.game.getEnemyPlayer().getCurrentMessage()
+            );
+          }
+          
           ((GridGUI) source.getParent()).updateGUI();
           Main.playerGrid.updateGUI();
         }

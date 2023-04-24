@@ -22,6 +22,13 @@ public class Main {
     public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER);
     public static final MessagePanel MESSAGE_PANEL = new MessagePanel();
 
+    public static void reset() {
+        //first message should ask the user to place their first ship, the destroyer
+        MESSAGE_PANEL.setMessage("Please place your destroyer.");
+        Main.game.reset();
+        Main.enemyGrid.updateGUI();
+        Main.playerGrid.updateGUI();
+    }
     public static void main(String[] args) {
         JFrame f = new JFrame();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -71,6 +78,8 @@ public class Main {
         f.setUndecorated(false);
         f.setResizable(true);
         f.setVisible(true);
+
+        Main.reset();
     }
 
 }

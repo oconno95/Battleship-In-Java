@@ -63,6 +63,10 @@ public class Battleship {
     }
 
     public boolean fire() {
+        if(gameHasEnded()) {
+            return false;
+        }
+        
         int result = this.currentPlayer.fireAt(this.enemyPlayer);
         if(result == Grid.HIT_SHIP) {
             this.currentPlayer.useHitMessage();

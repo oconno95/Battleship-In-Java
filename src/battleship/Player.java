@@ -57,6 +57,7 @@ public abstract class Player {
         this.currentMessage = this.name + " has made an invalid move, try again!";
     }
 
+
     public abstract int[] getLocationToFireAt(Grid enemyGrid);
     public abstract boolean placeDestroyer();
     public abstract boolean placeCruiser();
