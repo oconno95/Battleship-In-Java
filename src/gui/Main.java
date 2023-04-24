@@ -20,6 +20,7 @@ public class Main {
     public static final Battleship game = new Battleship(HUMAN_PLAYER, COM_PLAYER);
     public static final GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
     public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER);
+    public static final MessagePanel MESSAGE_PANEL = new MessagePanel();
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -56,7 +57,7 @@ public class Main {
 
         //set message panel
         f.getContentPane().add(
-            new MessagePanel(),
+            MESSAGE_PANEL,
             new GridBagConstraints(0, 1, 3, 1, 1.0, 0.4, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(2,2,2,2), 0, 0)
         );
 

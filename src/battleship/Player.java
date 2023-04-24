@@ -11,6 +11,7 @@ public abstract class Player {
     private Grid grid;
     protected String name = "Default Player";
     protected int state = PLACING_DESTROYER;
+    protected String currentMessage = "";
 
     public Player() {
         grid = new Grid();
@@ -35,24 +36,24 @@ public abstract class Player {
         return this.grid.isAllShipsDestroyed();
     }
 
-    public void printMissMessage() {
-        System.out.println(this.name + " has missed.");
+    public String getMissMessage() {
+        return this.name + " has missed.";
     }
 
-    public void printHitMessage() {
-        System.out.println(this.name + " has hit a ship.");
+    public String getHitMessage() {
+        return this.name + " has hit a ship.";
     }
 
-    public void printSunkMessage() {
-        System.out.println(this.name + " has sunk a ship.");
+    public String getSunkMessage() {
+        return this.name + " has sunk a ship.";
     }
 
-    public void printWinMessage() {
-        System.out.println(this.name + " has won the game.");
+    public String getWinMessage() {
+        return this.name + " has won the game.";
     }
 
-    public void printInvalidShotMessage() {
-        System.out.println(this.name + " has made an invalid move, try again!");
+    public String getInvalidShotMessage() {
+        return this.name + " has made an invalid move, try again!";
     }
 
     public abstract int[] getLocationToFireAt(Grid enemyGrid);
