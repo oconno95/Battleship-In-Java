@@ -65,6 +65,4 @@ public abstract class Player {
     public abstract boolean placeBattleship();
     public abstract boolean placeCarrier();
 
-
-
 }

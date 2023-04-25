@@ -1,19 +1,166 @@
 package battleship;
 
 public class ComputerPlayer extends Player {
+    int difficulty;
 
-
-    public ComputerPlayer() {
+    public ComputerPlayer() {this(0);}
+    public ComputerPlayer(int difficulty) {
+        this.difficulty = difficulty;
         name = "Computer";
     }
     @Override
     public int[] getLocationToFireAt(Grid enemyGrid) {
-        int x, y;
-        do {
-            x = (int) (Math.random() * 10);
-            y = (int) (Math.random() * 10);
-        } while(!enemyGrid.canFireAt(x, y));
+        int x = -1;
+        int y = -1;
+
+        if (difficulty == 0) {
+            do {
+                x = (int) (Math.random() * 10);
+                y = (int) (Math.random() * 10);
+            } while(!enemyGrid.canFireAt(x, y));
+        }
+        else if (difficulty == 1) {
+            outerloop:
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (enemyGrid.getCell(i, j) == Grid.HIT_SHIP) {
+                        for (int r = 0; r < 4; r++) {
+                            if (r == 0) {
+                                x = i+1;
+                                y = j;
+                            }
+                            else if (r == 1) {
+                                x = i-1;
+                                y = j;
+                            }
+                            else if (r == 2) {
+                                x = i;
+                                y = j+1;
+                            }
+                            else {
+                                x = i;
+                                y = j-1;
+                            }
+                            
+                            if ((enemyGrid.pointIsOnGrid(x, y) && enemyGrid.canFireAt(x, y))) break outerloop;
+                        }
+                    }
+                }
+            }
+            if (x == -1) {
+                do {
+                    x = (int) (Math.random() * 10);
+                    y = (int) (Math.random() * 10);
+                } while(!enemyGrid.canFireAt(x, y));
+            }
+        }
+        else if (difficulty == 2) {
+            outerloop:
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (enemyGrid.getCell(i, j) == Grid.HIT_SHIP) {
+                        int shipDirection = 0;
+
+                        if ((enemyGrid.pointIsOnGrid(i+1, j) && enemyGrid.getCell(i+1, j) == Grid.HIT_SHIP) ||
+                            (enemyGrid.pointIsOnGrid(i-1, j) && enemyGrid.getCell(i-1, j) == Grid.HIT_SHIP)) {
+                            shipDirection = 1;
+                        }
+                        else if ((enemyGrid.pointIsOnGrid(i, j+1) && enemyGrid.getCell(i, j+1) == Grid.HIT_SHIP) ||
+                            (enemyGrid.pointIsOnGrid(i, j-1) && enemyGrid.getCell(i, j-1) == Grid.HIT_SHIP)) {
+                            shipDirection = 2;
+                        }
+
+                        if (shipDirection == 1) {
+                            int x1 = i;
+                            int y1 = j;
+                            while(enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.getCell(x1, y1) == Grid.HIT_SHIP) {
+                                x1++;
+                                if ((enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.canFireAt(x1, y1))) {
+                                    x = x1;
+                                    y = y1;
+                                    break outerloop;
+                                }
+                            }
+                            x1 = i;
+                            y1 = j;
+                            while(enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.getCell(x1, y1) == Grid.HIT_SHIP) {
+                                x1--;
+                                if ((enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.canFireAt(x1, y1))) {
+                                    x = x1;
+                                    y = y1;
+                                    break outerloop;
+                                }
+                            }
+                        }
+                        else if (shipDirection == 2) {
+                            int x1 = i;
+                            int y1 = j;
+                            while(enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.getCell(x1, y1) == Grid.HIT_SHIP) {
+                                y1++;
+                                if ((enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.canFireAt(x1, y1))) {
+                                    x = x1;
+                                    y = y1;
+                                    break outerloop;
+                                }
+                            }
+                            x1 = i;
+                            y1 = j;
+                            while(enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.getCell(x1, y1) == Grid.HIT_SHIP) {
+                                y1--;
+                                if ((enemyGrid.pointIsOnGrid(x1, y1) && enemyGrid.canFireAt(x1, y1))) {
+                                    x = x1;
+                                    y = y1;
+                                    break outerloop;
+                                }
+                            }
+                        }
+                        else {
+                            for (int r = 0; r < 4; r++) {
+                                if (r == 0) {
+                                    x = i+1;
+                                    y = j;
+                                }
+                                else if (r == 1) {
+                                    x = i-1;
+                                    y = j;
+                                }
+                                else if (r == 2) {
+                                    x = i;
+                                    y = j+1;
+                                }
+                                else {
+                                    x = i;
+                                    y = j-1;
+                                }
+                                
+                                if ((enemyGrid.pointIsOnGrid(x, y) && enemyGrid.canFireAt(x, y))) break outerloop;
+                            }
+                        }
+                    }
+                }
+            }
+            randomPoint:
+            if (x == -1) {
+                for (int i = 0; i < 10; i++) {
+                    x = (int) (Math.random() * 10);
+                    y = (int) (Math.random() * 10);
+
+                    if ((!enemyGrid.pointIsOnGrid(x+1, y) || enemyGrid.canFireAt(x+1, y)) &&
+                        (!enemyGrid.pointIsOnGrid(x-1, y) || enemyGrid.canFireAt(x-1, y)) &&
+                        (!enemyGrid.pointIsOnGrid(x, y+1) || enemyGrid.canFireAt(x, y+1)) &&
+                        (!enemyGrid.pointIsOnGrid(x, y-1) || enemyGrid.canFireAt(x, y-1)) && 
+                        (enemyGrid.canFireAt(x, y))) {
+                            break randomPoint;
+                    }
+                }
+                do {
+                    x = (int) (Math.random() * 10);
+                    y = (int) (Math.random() * 10);
+                } while(!enemyGrid.canFireAt(x, y));
+            }
+        }
         
+        System.out.println("Computer Guess: " + y + ", " + x);
         return new int[] {x, y};
     }
 
@@ -72,7 +219,6 @@ public class ComputerPlayer extends Player {
             coordinates = getPositionsOfNShip(3);
         } while(!this.getGrid().placeSubmarine(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
         return true;
-
     }
     @Override
     public boolean placeBattleship() {
@@ -81,7 +227,6 @@ public class ComputerPlayer extends Player {
             coordinates = getPositionsOfNShip(4);
         } while(!this.getGrid().placeBattleship(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
         return true;
-
     }
     @Override
     public boolean placeCarrier() {
@@ -90,9 +235,6 @@ public class ComputerPlayer extends Player {
             coordinates = getPositionsOfNShip(5);
         } while(!this.getGrid().placeCarrier(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
         return true;
-
     }
 
-  
-    
 }
