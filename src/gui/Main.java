@@ -4,6 +4,7 @@ import battleship.*;
 import gui.mouselisteners.*;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Component;
@@ -20,7 +21,38 @@ public class Main {
     public static final Battleship game = new Battleship(HUMAN_PLAYER, COM_PLAYER);
     public static final GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
     public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER);
+    public static final MessagePanel MESSAGE_PANEL = new MessagePanel();
 
+    public static void reset() {
+        //first message should ask the user to place their first ship, the destroyer
+        MESSAGE_PANEL.setMessage("Please place your destroyer.");
+
+        //give user choice of difficulty
+        String[] options = {"Easy", "Medium", "Hard"};
+
+        int difficulty = 0;
+        do {
+            //difficulty is same as the index for the options array (0=easy, 1=medium, 2=hard)
+            difficulty = JOptionPane.showOptionDialog(
+                null, 
+                "Select the difficulty:", 
+                "Difficulty Selector", 
+                JOptionPane.OK_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null,
+                options,
+                null
+            );
+        }
+        while(difficulty == -1); //-1 is set when user closes JOptionPane without selecting an option
+
+        System.out.println(difficulty);
+
+        
+        Main.game.reset();
+        Main.enemyGrid.updateGUI();
+        Main.playerGrid.updateGUI();
+    }
     public static void main(String[] args) {
         JFrame f = new JFrame();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -56,7 +88,7 @@ public class Main {
 
         //set message panel
         f.getContentPane().add(
-            new MessagePanel(),
+            MESSAGE_PANEL,
             new GridBagConstraints(0, 1, 3, 1, 1.0, 0.4, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(2,2,2,2), 0, 0)
         );
 
@@ -70,6 +102,8 @@ public class Main {
         f.setUndecorated(false);
         f.setResizable(true);
         f.setVisible(true);
+
+        Main.reset();
     }
 
 }

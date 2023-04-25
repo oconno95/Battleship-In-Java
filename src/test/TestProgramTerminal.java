@@ -37,7 +37,8 @@ public class TestProgramTerminal {
                 game.fire();
                 game.printCurrentPlayerGrid();
             }
-            game.getWinner().printWinMessage();
+            
+            System.out.println(game.getWinner().getCurrentMessage());
             System.out.println("Want to play again? (y,n): ");
             playAgain = HumanPlayer.in.next().charAt(0);
        } while(playAgain == 'y');

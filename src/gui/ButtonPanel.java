@@ -25,9 +25,7 @@ public class ButtonPanel extends JPanel {
         
             @Override
             public void mousePressed(MouseEvent e) {
-              Main.game.reset();
-              Main.enemyGrid.updateGUI();
-              Main.playerGrid.updateGUI();
+                Main.reset();
             }
         
             @Override
@@ -47,26 +45,7 @@ public class ButtonPanel extends JPanel {
         
             @Override
             public void mousePressed(MouseEvent e) {
-              System.exit(0);
-            }
-        
-            @Override
-            public void mouseReleased(MouseEvent e) {}
-        
-            @Override
-            public void mouseEntered(MouseEvent e) {}
-        
-            @Override
-            public void mouseExited(MouseEvent e) {}
-        });
-
-        resetButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {}
-        
-            @Override
-            public void mousePressed(MouseEvent e) {
-                //restart the game
+                System.exit(0);
             }
         
             @Override

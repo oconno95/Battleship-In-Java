@@ -63,15 +63,19 @@ public class Battleship {
     }
 
     public boolean fire() {
+        if(gameHasEnded()) {
+            return false;
+        }
+        
         int result = this.currentPlayer.fireAt(this.enemyPlayer);
         if(result == Grid.HIT_SHIP) {
-            this.currentPlayer.printHitMessage();
+            this.currentPlayer.useHitMessage();
         } else if(result == Grid.SUNK_SHIP) {
-            this.currentPlayer.printSunkMessage();
+            this.currentPlayer.useSunkMessage();
         } else if(result == Grid.MISS) {
-            this.currentPlayer.printMissMessage();
+            this.currentPlayer.useMissMessage();
         } else {
-            this.currentPlayer.printInvalidShotMessage();
+            this.currentPlayer.useInvalidShotMessage();
             return false;
         }
         gameHasEnded();
@@ -91,6 +95,7 @@ public class Battleship {
         }
 
         if(this.winner != null) {
+            this.winner.useWinMessage();
             this.state = END;
             return true;
         }
