@@ -38,23 +38,48 @@ public abstract class Player {
     }
 
     public void useMissMessage() {
-        this.currentMessage = this.name + " has missed.";
+        if (this.name.equals("You")) {
+            this.currentMessage = this.name + " have missed.";
+        }
+        else {
+            this.currentMessage = this.name + " has missed.";
+        }
     }
 
     public void useHitMessage() {
-        this.currentMessage = this.name + " has hit a ship.";
+        if (this.name.equals("You")) {
+            this.currentMessage = this.name + " have hit a ship.";
+        }
+        else {
+            this.currentMessage = this.name + " has hit a ship.";
+        }
     }
 
     public void useSunkMessage() {
-        this.currentMessage = this.name + " has sunk a ship.";
+        if (this.name.equals("You")) {
+            this.currentMessage = this.name + " have sunk a ship.";
+        }
+        else {
+            this.currentMessage = this.name + " has sunk a ship.";
+        }
     }
 
     public void useWinMessage() {
-        this.currentMessage = this.name + " has won the game.";
+        if (this.name.equals("You")) {
+            this.currentMessage = this.name + " have won the game.";
+        }
+        else {
+            this.currentMessage = this.name + " has won the game.";
+        }
     }
 
     public void useInvalidShotMessage() {
-        this.currentMessage = this.name + " has made an invalid move, try again!";
+        if (this.name.equals("You")) {
+            this.currentMessage = this.name + " have made an invalid move, try again!";
+        }
+        else {
+            this.currentMessage = this.name + " has made an invalid move, try again!.";
+        }
     }
 
 
