@@ -1,17 +1,27 @@
 package battleship;
 
 public class ComputerPlayer extends Player {
-    int difficulty;
+    private int difficulty;
 
     public ComputerPlayer() {this(0);}
     public ComputerPlayer(int difficulty) {
         this.difficulty = difficulty;
         name = "Computer";
     }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     @Override
     public int[] getLocationToFireAt(Grid enemyGrid) {
         int x = -1;
         int y = -1;
+
+        //if a difficulty is invalid, use difficulty 1
+        if(difficulty < 0 && difficulty > 2) {
+            difficulty = 1;
+        }
 
         if (difficulty == 0) {
             do {

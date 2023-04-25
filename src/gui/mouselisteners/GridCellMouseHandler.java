@@ -44,7 +44,6 @@ public class GridCellMouseHandler implements MouseListener {
         //if the currentPlayer (GuiHumanPlayer) fires a valid shot, the computer will fire when main.game.fire is called again
         if (Main.game.fire()) {
           //try {Thread.sleep(1000);} catch (InterruptedException e1) {e1.printStackTrace();}
-          Main.game.fire();
           Main.game.fire(); //computer player will always make a valid shot, so no need to check return value
 
           //if game has ended, display the win message.

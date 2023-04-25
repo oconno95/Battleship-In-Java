@@ -13,7 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 public class Main {
-    private static final Player COM_PLAYER = new ComputerPlayer(2);
+    private static final ComputerPlayer COM_PLAYER = new ComputerPlayer();
     private static final GuiHumanPlayer HUMAN_PLAYER = new GuiHumanPlayer();
 
     //PUBLIC STATIC FINAL variables that can be accessed throughout the entire program.
@@ -46,8 +46,9 @@ public class Main {
         }
         while(difficulty == -1); //-1 is set when user closes JOptionPane without selecting an option
 
-        System.out.println(difficulty);
+        System.out.println("Difficulty: " + difficulty);
 
+        Main.COM_PLAYER.setDifficulty(difficulty);
         
         Main.game.reset();
         Main.enemyGrid.updateGUI();
