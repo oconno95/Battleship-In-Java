@@ -4,6 +4,7 @@ import battleship.*;
 import gui.mouselisteners.*;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Component;
@@ -25,6 +26,29 @@ public class Main {
     public static void reset() {
         //first message should ask the user to place their first ship, the destroyer
         MESSAGE_PANEL.setMessage("Please place your destroyer.");
+
+        //give user choice of difficulty
+        String[] options = {"Easy", "Medium", "Hard"};
+
+        int difficulty = 0;
+        do {
+            //difficulty is same as the index for the options array (0=easy, 1=medium, 2=hard)
+            difficulty = JOptionPane.showOptionDialog(
+                null, 
+                "Select the difficulty:", 
+                "Difficulty Selector", 
+                JOptionPane.OK_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null,
+                options,
+                null
+            );
+        }
+        while(difficulty == -1); //-1 is set when user closes JOptionPane without selecting an option
+
+        System.out.println(difficulty);
+
+        
         Main.game.reset();
         Main.enemyGrid.updateGUI();
         Main.playerGrid.updateGUI();
