@@ -3,8 +3,11 @@ package gui;
 import battleship.*;
 import gui.mouselisteners.*;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Component;
@@ -20,7 +23,7 @@ public class Main {
     //Because only one of these objects will ever exist, this should be OK.
     public static final Battleship game = new Battleship(HUMAN_PLAYER, COM_PLAYER);
     public static final GridGUI playerGrid = new GridGUI(HUMAN_PLAYER);
-    public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER);
+    public static final GridGUI enemyGrid = new GridGUI(COM_PLAYER, false);
     public static final MessagePanel MESSAGE_PANEL = new MessagePanel();
 
     public static void reset() {
@@ -76,13 +79,29 @@ public class Main {
 
         f.getContentPane().setLayout(new GridBagLayout());
 
+        JPanel playerGridWrapper = new JPanel();
+        playerGridWrapper.setLayout(new BoxLayout(playerGridWrapper, BoxLayout.Y_AXIS));
+        playerGridWrapper.add(playerGrid);
+        playerGridWrapper.add(new JLabel("Your Grid"));
+
+
+        JPanel enemyGridWrapper = new JPanel();
+        enemyGridWrapper.setLayout(new BoxLayout(enemyGridWrapper, BoxLayout.Y_AXIS));
+        enemyGridWrapper.add(enemyGrid);
+        enemyGridWrapper.add(new JLabel("Enemy Grid"));
+
+        //add padding to right of playerGridWrapper and left of enemyGridWrapper
+        playerGridWrapper.setBorder(new EmptyBorder(0,0,10,10));
+        enemyGridWrapper.setBorder(new EmptyBorder(0,10,10,0));
+
+
         //set up grids
         f.getContentPane().add(
-            playerGrid, 
+            playerGridWrapper, 
             new GridBagConstraints(0, 0 , 1, 1, 1.0, 0.6, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(2,2,2,2), 0, 0)
         );
         f.getContentPane().add(
-            enemyGrid, 
+            enemyGridWrapper, 
             new GridBagConstraints(1, 0 , 1, 1, 1.0, 0.6, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(2,2,2,2), 0, 0)
         );
 
