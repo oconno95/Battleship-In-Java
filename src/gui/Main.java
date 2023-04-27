@@ -25,7 +25,7 @@ public class Main {
 
     public static void reset() {
         //first message should ask the user to place their first ship, the destroyer
-        MESSAGE_PANEL.setMessage("Please place your destroyer.");
+        MESSAGE_PANEL.setMessagePlacement("destroyer");
 
         //give user choice of difficulty
         String[] options = {"Easy", "Medium", "Hard"};

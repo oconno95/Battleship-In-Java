@@ -19,4 +19,11 @@ public class MessagePanel extends JPanel {
     public void setMessage(String text) {
         message.setText(text);
     }
+
+    public void setMessagePlacement(String text) {
+        String pleasePlace = new String("Please place your ");
+        String placingInstructions = new String(".  ---  Left Click to place the ship and Right Click to rotate the ship");
+
+        message.setText(pleasePlace + text + placingInstructions);
+    }
 }
