@@ -58,7 +58,7 @@ public class Main {
         Main.playerGrid.updateGUI();
     }
     public static void main(String[] args) {
-        JFrame f = new JFrame();
+        JFrame f = new JFrame("Battleship");
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         f.setSize(800, 800);
 
