@@ -21,6 +21,7 @@ public class GridGUI extends JPanel {
     public static final int GRID_SIZE = 10;
     private ArrayList<CellPanel> selectedCells = new ArrayList<CellPanel>();
     private Player player;
+    private boolean showShips = true;
     
     public GridGUI(Player p) {
         this.player = p;
@@ -37,6 +38,11 @@ public class GridGUI extends JPanel {
                 this.add(cell);
             }
         }
+    }
+
+    public GridGUI(Player p, boolean showShips) {
+        this(p);
+        this.showShips = showShips;
     }
 
     public final ArrayList<CellPanel> getSelectedCells() {return this.selectedCells;}
@@ -104,7 +110,12 @@ public class GridGUI extends JPanel {
                         getCell(r,c).markMiss();
                         break;
                     case Grid.UNHIT_SHIP:
-                        getCell(r,c).markShip();
+                        //dont display ships to player if showShips is false
+                        if(showShips) {
+                            getCell(r,c).markShip();
+                        } else {
+                            getCell(r,c).markEmpty();
+                        }
                         break;
                     default:
                         getCell(r,c).markEmpty();
