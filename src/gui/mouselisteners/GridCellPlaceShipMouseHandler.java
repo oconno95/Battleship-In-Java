@@ -49,21 +49,22 @@ public class GridCellPlaceShipMouseHandler implements MouseListener {
 
             //change the message displayed to ship what ship to place down next
             if(oldState != player.getState()) {
+                
                 switch(player.getState()) {
                     case Player.PLACING_CRUISOR:
-                        Main.MESSAGE_PANEL.setMessage("Please place your crusier.");
+                        Main.MESSAGE_PANEL.setMessagePlacement("cruiser");
                         break;
                     case Player.PLACING_SUBMARINE:
-                        Main.MESSAGE_PANEL.setMessage("Please place your submarine.");
+                        Main.MESSAGE_PANEL.setMessagePlacement("submarine");
                         break;
                     case Player.PLACING_BATTLESHIP:
-                        Main.MESSAGE_PANEL.setMessage("Please place your battleship.");
+                        Main.MESSAGE_PANEL.setMessagePlacement("battleship");
                         break;
                     case Player.PLACING_CARRIER:
-                        Main.MESSAGE_PANEL.setMessage("Please place your carrier.");
+                        Main.MESSAGE_PANEL.setMessagePlacement("carrier");
                         break;
                     default:
-                        Main.MESSAGE_PANEL.setMessage("Please place your destroyer.");
+                        Main.MESSAGE_PANEL.setMessagePlacement("destroyer");
                         break;
                 }
             }
